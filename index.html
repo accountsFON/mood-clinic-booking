@@ -17,6 +17,13 @@
 .mc-book-btn:hover{transform:scale(1.03);box-shadow:0 12px 32px rgba(110,70,173,0.35);}
 .mc-book-btn:active{transform:scale(0.97);}
 @media(max-width:640px){.mc-book-btn{width:100%;text-align:center;padding:0.9rem 1.5rem;font-size:1.35rem;}}
+/* Hide theme nav booking button on this page only */
+header .elementor-button-wrapper,
+header li:has(.elementor-button),
+#site-header .custom-button,
+#site-header .oceanwp-button,
+.site-header .custom-button,
+.site-header .oceanwp-button{display:none!important;}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -241,31 +248,36 @@ function mcToggleFaq(btn){
 </script>
 <script>
 (function(){
-  function overrideNavBtn(){
-    var btns = document.querySelectorAll('header .elementor-button, header a.elementor-button-link, header [class*="elementor-button"]');
-    btns.forEach(function(btn){
-      var txt = btn.textContent.trim().toLowerCase();
-      if(txt.includes('started') || txt.includes('book') || txt.includes('appointment') || txt.includes('consult')){
-        if(!btn.dataset.calOverridden){
-          btn.dataset.calOverridden = '1';
-          btn.addEventListener('click', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            var overlay = document.getElementById('mc-cal-overlay');
-            if(overlay) overlay.classList.add('open');
-          });
-          if(btn.tagName === 'A') btn.removeAttribute('href');
-          btn.style.cursor = 'pointer';
-        }
+  function hideNavBookBtn(){
+    var selectors = [
+      'header .elementor-button',
+      'header a.elementor-button-link',
+      'header [class*="elementor-button"]',
+      'header .custom-button',
+      'header .oceanwp-button',
+      '#site-header button',
+      '#site-header a.button',
+      '.site-header button',
+      '.site-header a.button',
+      '.top-bar button',
+      '.top-bar a.button'
+    ];
+    var keywords = ['started','book','appointment','consult'];
+    document.querySelectorAll(selectors.join(',')).forEach(function(el){
+      var txt = el.textContent.trim().toLowerCase();
+      if(keywords.some(function(k){ return txt.includes(k); })){
+        // Hide the button AND its parent wrapper so no empty space remains
+        var wrap = el.closest('li, .elementor-button-wrapper, .menu-item') || el;
+        wrap.style.setProperty('display','none','important');
       }
     });
   }
   if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', overrideNavBtn);
+    document.addEventListener('DOMContentLoaded', hideNavBookBtn);
   } else {
-    overrideNavBtn();
+    hideNavBookBtn();
   }
-  setTimeout(overrideNavBtn, 300);
-  setTimeout(overrideNavBtn, 1000);
+  setTimeout(hideNavBookBtn, 300);
+  setTimeout(hideNavBookBtn, 1000);
 })();
 </script>
