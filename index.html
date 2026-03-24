@@ -1,23 +1,44 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+
+/* ── Calendly Modal ── */
 #mc-cal-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;}
 #mc-cal-overlay.open{display:flex;}
 #mc-cal-box{background:#fff;border-radius:1.5rem;overflow:hidden;width:95%;max-width:700px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 25px 60px rgba(0,0,0,0.3);}
 #mc-cal-header{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;border-bottom:1px solid #e5e7eb;flex-shrink:0;}
-#mc-cal-header h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#151c25;}
-#mc-cal-close{background:none;border:none;cursor:pointer;font-size:1.8rem;color:#7b7483;line-height:1;padding:0.25rem;}
+#mc-cal-header h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:#151c25;}
+#mc-cal-close{background:none;border:none;cursor:pointer;font-size:1.5rem;color:#7b7483;line-height:1;padding:0.25rem;}
 #mc-cal-close:hover{color:#6e46ad;}
 #mc-cal-body{flex:1;overflow-y:auto;}
 @media(max-width:640px){
   #mc-cal-overlay{align-items:flex-end;}
   #mc-cal-box{width:100%;max-height:92vh;border-radius:1.25rem 1.25rem 0 0;}
 }
-.mc-book-btn{display:inline-block;background:linear-gradient(135deg,#6e46ad,#875fc8);color:#fff;padding:1rem 2.5rem;border-radius:1rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:18px;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(110,70,173,0.25);transition:transform 0.2s,box-shadow 0.2s;}
+
+/* ── CTA Button ── */
+.mc-book-btn{
+  display:inline-block;
+  background:linear-gradient(135deg,#6e46ad,#875fc8);
+  color:#fff;
+  padding:0.875rem 2.25rem;
+  border-radius:1rem;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:700;
+  font-size:1.125rem; /* 18px */
+  border:none;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(110,70,173,0.25);
+  transition:transform 0.2s,box-shadow 0.2s;
+  line-height:1.4;
+}
 .mc-book-btn:hover{transform:scale(1.03);box-shadow:0 12px 32px rgba(110,70,173,0.35);}
 .mc-book-btn:active{transform:scale(0.97);}
-@media(max-width:640px){.mc-book-btn{width:100%;text-align:center;padding:0.9rem 1.5rem;font-size:1.35rem;}}
-/* Hide theme nav booking button on this page only */
+@media(max-width:640px){
+  .mc-book-btn{width:100%;text-align:center;padding:0.875rem 1.25rem;font-size:1.125rem;}
+}
+
+/* ── Hide theme nav booking button on this page only ── */
 header .elementor-button-wrapper,
 header li:has(.elementor-button),
 #site-header .custom-button,
@@ -30,11 +51,11 @@ header li:has(.elementor-button),
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
-tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#dbd9fe","primary-fixed":"#ecdcff","on-primary":"#ffffff","secondary":"#5c5b7a","outline":"#7b7483","surface-container":"#e8eefb","on-primary-container":"#fffbff","primary":"#6e46ad","on-secondary-container":"#5e5e7d","surface":"#f8f9ff","on-surface-variant":"#4a4451","outline-variant":"#ccc3d3","surface-container-lowest":"#ffffff","primary-container":"#875fc8","tertiary":"#006767","surface-variant":"#dde3ef","on-surface":"#151c25","on-background":"#151c25","surface-container-low":"#eff4ff","on-tertiary":"#ffffff","primary-fixed-dim":"#d5baff","tertiary-container":"#008282","on-tertiary-container":"#f3fffe","secondary-container":"#dbd9fe","background":"#f8f9ff"},fontFamily:{headline:["Plus Jakarta Sans"],body:["Inter"],label:["Inter"]},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"}}}}
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#6e46ad","primary-container":"#875fc8","secondary":"#5c5b7a","tertiary":"#006767","tertiary-container":"#008282","surface":"#f8f9ff","surface-container-low":"#eff4ff","surface-container-lowest":"#ffffff","on-surface":"#151c25","outline":"#7b7483","outline-variant":"#ccc3d3","on-tertiary-container":"#f3fffe"},fontFamily:{headline:["Plus Jakarta Sans"],body:["Inter"]}}}}
 </script>
 
 <!-- Calendly Modal -->
-<div id="mc-cal-overlay">
+<div id="mc-cal-overlay" role="dialog" aria-modal="true" aria-label="Book a Consultation">
   <div id="mc-cal-box">
     <div id="mc-cal-header">
       <h3>Book Your Free 15-Minute Consult</h3>
@@ -51,51 +72,73 @@ function openCal(){document.getElementById('mc-cal-overlay').classList.add('open
 document.getElementById('mc-cal-overlay').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 </script>
 
+<!-- ══════════════════════════════════════════
+     PAGE WRAPPER
+══════════════════════════════════════════ -->
 <div id="mc-breakout" style="width:100vw;position:relative;left:50%;transform:translateX(-50%);overflow-x:hidden;font-family:'Inter',sans-serif;color:#151c25;background:#f8f9ff;">
 
-<!-- Hero Section -->
-<section style="padding:6.5rem 1.5rem 4rem;width:100%;background:#fff;">
+<!-- ── HERO ── -->
+<section style="padding:6rem 1.5rem 4rem;width:100%;background:#fff;">
   <div style="max-width:1280px;margin:0 auto;">
     <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
+
+      <!-- Copy -->
       <div class="flex-1 text-center lg:text-left w-full">
-        <div style="display:inline-flex;align-items:center;padding:0.4rem 1rem;border-radius:9999px;background:#008282;color:#f3fffe;font-size:16px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;">Now Accepting New Patients</div>
-        <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(3rem,6vw,5.4rem);line-height:1.1;letter-spacing:-0.02em;font-weight:800;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.5rem;color:#151c25;">Expert Psychiatric Care <span style="color:#6e46ad;font-style:italic;">That Fits Your Life</span></h1>
-        <p style="font-size:16px;color:#5c5b7a;margin-bottom:2rem;line-height:1.6;max-width:580px;">Modern mental health care designed around you. Integrated therapy and medication management from the comfort of your home, scheduled to fit your busy lifestyle.</p>
+        <!-- Badge: 13px -->
+        <div style="display:inline-flex;align-items:center;padding:0.35rem 1rem;border-radius:9999px;background:#008282;color:#f3fffe;font-size:0.8125rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;">Now Accepting New Patients</div>
+
+        <!-- H1: clamp 40px → 60px -->
+        <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2.5rem,5vw,3.75rem);line-height:1.1;letter-spacing:-0.02em;font-weight:800;margin-bottom:1.25rem;color:#151c25;">
+          Expert Psychiatric Care <span style="color:#6e46ad;font-style:italic;">That Fits Your Life</span>
+        </h1>
+
+        <!-- Body: 16px -->
+        <p style="font-size:1rem;color:#5c5b7a;margin-bottom:2rem;line-height:1.7;max-width:560px;">Modern mental health care designed around you. Integrated therapy and medication management from the comfort of your home, scheduled to fit your busy lifestyle.</p>
+
         <button onclick="openCal()" class="mc-book-btn">Book Your Free 15-Minute Consult</button>
       </div>
+
+      <!-- Image -->
       <div class="flex-1 w-full" style="max-width:520px;margin:0 auto;">
-        <div class="mc-img-card" style="background:#fff;padding:1.25rem;border-radius:2rem;box-shadow:0 25px 50px rgba(0,0,0,0.12);transform:rotate(2deg);transition:transform 0.7s ease;"  onmouseover="this.style.transform='rotate(0deg)'" onmouseout="this.style.transform='rotate(2deg)'">
-          <img alt="Professional psychiatrist" src="https://moodclinic.org/wp-content/uploads/2024/08/download-13-1.png" style="width:100%;border-radius:1.5rem;display:block;object-fit:cover;max-height:500px;">
+        <div style="background:#fff;padding:1.25rem;border-radius:2rem;box-shadow:0 25px 50px rgba(0,0,0,0.12);transform:rotate(2deg);transition:transform 0.7s ease;" onmouseover="this.style.transform='rotate(0deg)'" onmouseout="this.style.transform='rotate(2deg)'">
+          <img alt="Professional psychiatrist at Mood Clinic" src="https://moodclinic.org/wp-content/uploads/2024/08/download-13-1.png" style="width:100%;border-radius:1.5rem;display:block;object-fit:cover;max-height:500px;">
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- Benefits Grid -->
+<!-- ── BENEFITS GRID ── -->
 <section style="background:#eff4ff;padding:4rem 1.5rem;width:100%;border-top:1px solid #e0e0ed;border-bottom:1px solid #e0e0ed;">
   <div style="max-width:1280px;margin:0 auto;">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style="margin-bottom:2.5rem;">
+
       <div style="background:#fff;padding:1.75rem;border-radius:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #e8eefb;">
-        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2.1rem;">calendar_today</span></div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.35rem;margin-bottom:0.6rem;">Fast Access</h3>
-        <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Appointments available within two weeks. No more waiting months for care.</p>
+        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:1.75rem;">calendar_today</span></div>
+        <!-- Card H3: 22px -->
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.375rem;margin-bottom:0.5rem;color:#151c25;">Fast Access</h3>
+        <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Appointments available within two weeks. No more waiting months for care.</p>
       </div>
+
       <div style="background:#fff;padding:1.75rem;border-radius:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #e8eefb;">
-        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2.1rem;">schedule</span></div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.35rem;margin-bottom:0.6rem;">Flexible Hours</h3>
-        <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Evening and Saturday scheduling available for busy professionals and parents.</p>
+        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:1.75rem;">schedule</span></div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.375rem;margin-bottom:0.5rem;color:#151c25;">Flexible Hours</h3>
+        <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Evening and Saturday scheduling available for busy professionals and parents.</p>
       </div>
+
       <div style="background:#fff;padding:1.75rem;border-radius:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #e8eefb;">
-        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2.1rem;">psychology</span></div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.35rem;margin-bottom:0.6rem;">Integrated Care</h3>
-        <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Personalized therapy and medication management integrated seamlessly.</p>
+        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:1.75rem;">psychology</span></div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.375rem;margin-bottom:0.5rem;color:#151c25;">Integrated Care</h3>
+        <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Personalized therapy and medication management integrated seamlessly.</p>
       </div>
+
       <div style="background:#fff;padding:1.75rem;border-radius:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #e8eefb;">
-        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2.1rem;">verified_user</span></div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.35rem;margin-bottom:0.6rem;">Full Coverage</h3>
-        <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">We are in-network with most major insurance partners for affordable care.</p>
+        <div style="width:48px;height:48px;background:#ecdcff;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:1.75rem;">verified_user</span></div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.375rem;margin-bottom:0.5rem;color:#151c25;">Full Coverage</h3>
+        <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">We are in-network with most major insurance partners for affordable care.</p>
       </div>
+
     </div>
     <div style="text-align:center;">
       <button onclick="openCal()" class="mc-book-btn">Book Your Free 15-Minute Consult</button>
@@ -103,44 +146,66 @@ document.getElementById('mc-cal-overlay').addEventListener('click',function(e){i
   </div>
 </section>
 
-<!-- Insurance Partners -->
+<!-- ── INSURANCE PARTNERS ── -->
 <section style="background:#fff;padding:4rem 1.5rem;width:100%;">
   <div style="max-width:1280px;margin:0 auto;text-align:center;">
-    <p style="font-size:1.5rem;font-weight:700;color:#7b7483;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2.5rem;">In-Network With Major Carriers</p>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem;opacity:0.5;filter:grayscale(1);transition:all 0.3s;" onmouseover="this.style.opacity='1';this.style.filter='grayscale(0)';" onmouseout="this.style.opacity='0.5';this.style.filter='grayscale(1)';">
-      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:900;color:#5c5b7a;">Cigna</span>
-      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:900;color:#5c5b7a;">UnitedHealthcare</span>
-      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:900;color:#5c5b7a;">Aetna</span>
-      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:900;color:#5c5b7a;">BlueCross</span>
-      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:900;color:#5c5b7a;">Oscar</span>
+    <!-- Section label: 14px -->
+    <p style="font-size:0.875rem;font-weight:700;color:#7b7483;text-transform:uppercase;letter-spacing:0.18em;margin-bottom:2.5rem;">In-Network With Major Carriers</p>
+    <!-- Carrier names: clamp 24px → 32px -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem 3rem;opacity:0.5;filter:grayscale(1);transition:all 0.4s;" onmouseover="this.style.opacity='1';this.style.filter='grayscale(0)';" onmouseout="this.style.opacity='0.5';this.style.filter='grayscale(1)';">
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:#5c5b7a;">Cigna</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:#5c5b7a;">UnitedHealthcare</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:#5c5b7a;">Aetna</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:#5c5b7a;">BlueCross</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:#5c5b7a;">Oscar</span>
     </div>
   </div>
 </section>
 
-<!-- Conditions Section -->
+<!-- ── CONDITIONS ── -->
 <section style="background:#eff4ff;padding:4rem 1.5rem;width:100%;border-top:1px solid #e0e0ed;border-bottom:1px solid #e0e0ed;">
   <div style="max-width:1280px;margin:0 auto;">
     <div style="margin-bottom:2.5rem;">
-      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;margin-bottom:1rem;color:#151c25;">Expertise That Matters</h2>
-      <p style="font-size:16px;color:#5c5b7a;max-width:600px;line-height:1.6;">Specialized care for a range of mental health conditions using evidence-based approaches and empathetic listening.</p>
+      <!-- Section H2: clamp 28px → 36px -->
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;margin-bottom:0.875rem;color:#151c25;">Expertise That Matters</h2>
+      <p style="font-size:1rem;color:#5c5b7a;max-width:580px;line-height:1.7;">Specialized care for a range of mental health conditions using evidence-based approaches and empathetic listening.</p>
     </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="margin-bottom:2.5rem;">
+
       <a href="https://moodclinic.org/services/anxiety/" style="display:flex;align-items:flex-start;gap:1.25rem;background:#fff;padding:1.75rem;border-radius:1.5rem;border:1px solid #e8eefb;box-shadow:0 2px 12px rgba(0,0,0,0.05);text-decoration:none;transition:box-shadow 0.2s,border-color 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(110,70,173,0.15)';this.style.borderColor='#c5b0e8';" onmouseout="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.05)';this.style.borderColor='#e8eefb';">
-        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#ecdcff;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2.1rem;">spa</span></div>
-        <div><h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:0.5rem;color:#151c25;">Anxiety</h4><p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Personalized evidence-based treatment for GAD, social anxiety, OCD, and panic disorders.</p></div>
+        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#ecdcff;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2rem;">spa</span></div>
+        <div>
+          <!-- Card H4: 22px -->
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.375rem;font-weight:700;margin-bottom:0.4rem;color:#151c25;">Anxiety</h4>
+          <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Personalized evidence-based treatment for GAD, social anxiety, OCD, and panic disorders.</p>
+        </div>
       </a>
+
       <a href="https://moodclinic.org/services/depression/" style="display:flex;align-items:flex-start;gap:1.25rem;background:#fff;padding:1.75rem;border-radius:1.5rem;border:1px solid #e8eefb;box-shadow:0 2px 12px rgba(0,0,0,0.05);text-decoration:none;transition:box-shadow 0.2s,border-color 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(110,70,173,0.15)';this.style.borderColor='#c5b0e8';" onmouseout="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.05)';this.style.borderColor='#e8eefb';">
-        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#dbd9fe;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#5c5b7a;font-size:2.1rem;">water_drop</span></div>
-        <div><h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:0.5rem;color:#151c25;">Depression</h4><p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Comprehensive care for major depression, postpartum depression, and persistent mood challenges.</p></div>
+        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#dbd9fe;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#5c5b7a;font-size:2rem;">water_drop</span></div>
+        <div>
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.375rem;font-weight:700;margin-bottom:0.4rem;color:#151c25;">Depression</h4>
+          <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Comprehensive care for major depression, postpartum depression, and persistent mood challenges.</p>
+        </div>
       </a>
+
       <a href="https://moodclinic.org/services/adhd/" style="display:flex;align-items:flex-start;gap:1.25rem;background:#fff;padding:1.75rem;border-radius:1.5rem;border:1px solid #e8eefb;box-shadow:0 2px 12px rgba(0,0,0,0.05);text-decoration:none;transition:box-shadow 0.2s,border-color 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(110,70,173,0.15)';this.style.borderColor='#c5b0e8';" onmouseout="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.05)';this.style.borderColor='#e8eefb';">
-        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#e8eefb;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#006767;font-size:2.1rem;">bolt</span></div>
-        <div><h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:0.5rem;color:#151c25;">ADHD</h4><p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Modern diagnostic assessment and tailored executive function management strategies for adults.</p></div>
+        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#e8eefb;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#006767;font-size:2rem;">bolt</span></div>
+        <div>
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.375rem;font-weight:700;margin-bottom:0.4rem;color:#151c25;">ADHD</h4>
+          <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Modern diagnostic assessment and tailored executive function management strategies for adults.</p>
+        </div>
       </a>
+
       <a href="https://moodclinic.org/services/bipolar-disorder/" style="display:flex;align-items:flex-start;gap:1.25rem;background:#fff;padding:1.75rem;border-radius:1.5rem;border:1px solid #e8eefb;box-shadow:0 2px 12px rgba(0,0,0,0.05);text-decoration:none;transition:box-shadow 0.2s,border-color 0.2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(110,70,173,0.15)';this.style.borderColor='#c5b0e8';" onmouseout="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.05)';this.style.borderColor='#e8eefb';">
-        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#ecdcff;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2.1rem;">theater_comedy</span></div>
-        <div><h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:0.5rem;color:#151c25;">Mood Disorders</h4><p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Specialized support for Bipolar I/II and complex mood stabilization with long-term tracking.</p></div>
+        <div style="width:60px;height:60px;min-width:60px;border-radius:1rem;background:#ecdcff;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="color:#6e46ad;font-size:2rem;">theater_comedy</span></div>
+        <div>
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.375rem;font-weight:700;margin-bottom:0.4rem;color:#151c25;">Mood Disorders</h4>
+          <p style="color:#5c5b7a;line-height:1.65;font-size:1rem;">Specialized support for Bipolar I/II and complex mood stabilization with long-term tracking.</p>
+        </div>
       </a>
+
     </div>
     <div style="text-align:center;">
       <button onclick="openCal()" class="mc-book-btn">Book Your Free 15-Minute Consult</button>
@@ -148,72 +213,75 @@ document.getElementById('mc-cal-overlay').addEventListener('click',function(e){i
   </div>
 </section>
 
-<!-- FAQ Section -->
+<!-- ── FAQ ── -->
 <section style="background:#fff;padding:4rem 1.5rem;width:100%;">
   <div style="max-width:860px;margin:0 auto;">
-    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;text-align:center;margin-bottom:2.5rem;color:#151c25;">Frequently Asked Questions</h2>
+    <!-- Section H2: clamp 28px → 36px -->
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;text-align:center;margin-bottom:2.5rem;color:#151c25;">Frequently Asked Questions</h2>
+
     <div id="mc-faq" style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2.5rem;">
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          Do you take my insurance?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <!-- FAQ question: 18px -->
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          Do you take my insurance?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">We proudly partner with many major commercial insurance providers including Cigna, UnitedHealthcare, Aetna, BlueCross, and Oscar. Private pay options are also available. We recommend calling your insurance provider to confirm your mental health benefits before your first visit.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">We proudly partner with many major commercial insurance providers including Cigna, UnitedHealthcare, Aetna, BlueCross, and Oscar. Private pay options are also available. We recommend calling your insurance provider to confirm your mental health benefits before your first visit.</p>
         </div>
       </div>
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          How quickly can I see a provider?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          How quickly can I see a provider?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">We pride ourselves on fast, accessible care. Most new patients can get connected and schedule a free consultation within as little as two weeks — far faster than the typical industry wait. Your initial appointment can often be scheduled within a single week of completing your clinical assessments.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">We pride ourselves on fast, accessible care. Most new patients can get connected and schedule a free consultation within as little as two weeks — far faster than the typical industry wait. Your initial appointment can often be scheduled within a single week of completing your clinical assessments.</p>
         </div>
       </div>
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          Can you prescribe medication?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          Can you prescribe medication?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Our provider, Michael Robustelli, is a dual board-certified Family and Psychiatric Nurse Practitioner (FNP, PMHNP) specializing in adult psychiatry. He is fully qualified to evaluate, diagnose, and prescribe medications for a wide range of mental health conditions. All medication decisions are made collaboratively with you as part of a personalized treatment plan.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">Our provider, Michael Robustelli, is a dual board-certified Family and Psychiatric Nurse Practitioner (FNP, PMHNP) specializing in adult psychiatry. He is fully qualified to evaluate, diagnose, and prescribe medications for a wide range of mental health conditions. All medication decisions are made collaboratively with you as part of a personalized treatment plan.</p>
         </div>
       </div>
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          Is therapy included in the visit?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          Is therapy included in the visit?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">— talk therapy is fully integrated into psychiatric sessions. Follow-up appointments include evidence-based psychotherapy as needed. Michael has formal CBT training from the Beck Institute and Massachusetts General Hospital Psychiatry Academy. Sessions are typically held monthly.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">Yes — talk therapy is fully integrated into psychiatric sessions. Follow-up appointments include evidence-based psychotherapy as needed. Michael has formal CBT training from the Beck Institute and Massachusetts General Hospital Psychiatry Academy. Sessions are typically held monthly.</p>
         </div>
       </div>
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          Where are you located? Do you offer telehealth?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          Where are you located? Do you offer telehealth?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">We offer TeleHealth services to patients across New Hampshire, Maine, Vermont, and Massachusetts — so you can receive expert psychiatric care from the comfort of your home. In-person therapy and assessment services are also available, with evening and Saturday appointments to fit busy schedules.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">We offer TeleHealth services to patients across New Hampshire, Maine, Vermont, and Massachusetts — so you can receive expert psychiatric care from the comfort of your home. In-person therapy and assessment services are also available, with evening and Saturday appointments to fit busy schedules.</p>
         </div>
       </div>
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          What does an initial appointment look like?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          What does an initial appointment look like?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">Your first visit is a comprehensive 55-minute psychiatric assessment. We review your current symptoms, personal and family history, and life stressors, then collaboratively build a treatment plan that may include medication, psychotherapy, or both. Follow-up sessions are 25 minutes, focused on refining your care.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">Your first visit is a comprehensive 55-minute psychiatric assessment. We review your current symptoms, personal and family history, and life stressors, then collaboratively build a treatment plan that may include medication, psychotherapy, or both. Follow-up sessions are 25 minutes, focused on refining your care.</p>
         </div>
       </div>
 
-      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s;">
-        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(1.14rem,2.4vw,1.32rem);color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;">
-          Who do you treat?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;">expand_more</span>
+      <div class="mc-faq-item" style="background:#eff4ff;border-radius:1.25rem;overflow:hidden;border:1px solid transparent;transition:border-color 0.2s,background 0.2s;">
+        <button onclick="mcToggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.125rem;color:#151c25;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;gap:1rem;line-height:1.4;">
+          Who do you treat?<span class="material-symbols-outlined" style="color:#6e46ad;flex-shrink:0;font-size:1.5rem;">expand_more</span>
         </button>
         <div class="mc-faq-answer" style="display:none;padding:0 1.5rem 1.25rem;">
-          <p style="color:#5c5b7a;line-height:1.6;font-size:16px;">We provide holistic, individualized care to adults ages 18 and older. We specialize in anxiety, depression, ADHD, bipolar disorder, OCD, PTSD, insomnia, binge eating, grief and loss, phobias, stress management, and more.</p>
+          <p style="color:#5c5b7a;line-height:1.7;font-size:1rem;">We provide holistic, individualized care to adults ages 18 and older. We specialize in anxiety, depression, ADHD, bipolar disorder, OCD, PTSD, insomnia, binge eating, grief and loss, phobias, stress management, and more.</p>
         </div>
       </div>
 
@@ -224,14 +292,15 @@ document.getElementById('mc-cal-overlay').addEventListener('click',function(e){i
   </div>
 </section>
 
-</div>
+</div><!-- end #mc-breakout -->
 
+<!-- ── FAQ Toggle Script ── -->
 <script>
 function mcToggleFaq(btn){
-  const item=btn.closest('.mc-faq-item');
-  const answer=item.querySelector('.mc-faq-answer');
-  const icon=btn.querySelector('.material-symbols-outlined');
-  const isOpen=answer.style.display!=='none';
+  var item=btn.closest('.mc-faq-item');
+  var answer=item.querySelector('.mc-faq-answer');
+  var icon=btn.querySelector('.material-symbols-outlined');
+  var isOpen=answer.style.display!=='none';
   document.querySelectorAll('.mc-faq-item').forEach(function(el){
     el.querySelector('.mc-faq-answer').style.display='none';
     el.querySelector('.material-symbols-outlined').textContent='expand_more';
@@ -246,10 +315,12 @@ function mcToggleFaq(btn){
   }
 }
 </script>
+
+<!-- ── Hide Nav Booking Button (this page only) ── -->
 <script>
 (function(){
   function hideNavBookBtn(){
-    var selectors = [
+    var selectors=[
       'header .elementor-button',
       'header a.elementor-button-link',
       'header [class*="elementor-button"]',
@@ -262,22 +333,19 @@ function mcToggleFaq(btn){
       '.top-bar button',
       '.top-bar a.button'
     ];
-    var keywords = ['started','book','appointment','consult'];
+    var keywords=['started','book','appointment','consult'];
     document.querySelectorAll(selectors.join(',')).forEach(function(el){
-      var txt = el.textContent.trim().toLowerCase();
-      if(keywords.some(function(k){ return txt.includes(k); })){
-        // Hide the button AND its parent wrapper so no empty space remains
-        var wrap = el.closest('li, .elementor-button-wrapper, .menu-item') || el;
+      var txt=el.textContent.trim().toLowerCase();
+      if(keywords.some(function(k){return txt.includes(k);})){
+        var wrap=el.closest('li,.elementor-button-wrapper,.menu-item')||el;
         wrap.style.setProperty('display','none','important');
       }
     });
   }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', hideNavBookBtn);
-  } else {
-    hideNavBookBtn();
-  }
-  setTimeout(hideNavBookBtn, 300);
-  setTimeout(hideNavBookBtn, 1000);
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',hideNavBookBtn);
+  }else{hideNavBookBtn();}
+  setTimeout(hideNavBookBtn,300);
+  setTimeout(hideNavBookBtn,1000);
 })();
 </script>
